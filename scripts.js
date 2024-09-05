@@ -1,48 +1,49 @@
-// Event listener untuk form pendaftaran (register)
-document.getElementById('daftar')?.addEventListener('submit', function(event) {
-    event.preventDefault();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const User = require('./models/User');
+const cors = require('cors');
 
-    // Ambil nilai dari form pendaftaran
-    const namabaru = document.getElementById('namabaru').value;
-    const passbaru = document.getElementById('passbaru').value;
-    const repass = document.getElementById('repass').value;
-    const emails = document.getElementById('emails').value;
+const app = express();
+const port = 5000;
 
-    // Cek apakah password dan konfirmasi password cocok
-    if (passbaru !== repass) {
-        alert('Password dan konfirmasi password tidak cocok.');
-        return;
-    }
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
 
-    // Simpan nama, email, dan password ke localStorage
-    localStorage.setItem('nama', namabaru);
-    localStorage.setItem('email', emails);
-    localStorage.setItem('password', passbaru);
-
-    alert('Pendaftaran berhasil! Silakan login.');
-
-    // Redirect ke halaman login setelah berhasil daftar
-    window.location.href = 'login.html';
+// Koneksi ke MongoDB
+mongoose.connect('mongodb+srv://123:123>@labilbar.r5kua.mongodb.net/mydatabase', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
-// Event listener untuk form login
-document.getElementById('login')?.addEventListener('submit', function(event) {
-    event.preventDefault();
+// Rute pendaftaran
+app.post('/api/auth/register', async (req, res) => {
+    const { name, email, password } = req.body;
 
-    // Ambil nilai dari form login
-    const nama = document.getElementById('nama').value;
-    const password = document.getElementById('password').value;
-
-    // Ambil nama dan password yang tersimpan di localStorage
-    const storedNama = localStorage.getItem('nama');
-    const storedPassword = localStorage.getItem('password');
-
-    // Cek apakah data login sesuai
-    if (nama === storedNama && password === storedPassword) {
-        alert('Login Berhasil!');
-        // Redirect ke halaman setelah login (misal: dashboard)
-        window.location.href = 'thanks.html';
-    } else {
-        alert('Nama atau Password salah.');
+    // Validasi data
+    if (!name || !email || !password) {
+        return res.status(400).json({ msg: 'Semua field harus diisi' });
     }
+
+    try {
+        // Cek apakah email sudah terdaftar
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ msg: 'Email sudah terdaftar' });
+        }
+
+        // Buat pengguna baru
+        const newUser = new User({ name, email, password });
+        await newUser.save();
+
+        res.status(201).json({ msg: 'Pendaftaran berhasil!' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Terjadi kesalahan server' });
+    }
+});
+
+// Mulai server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
