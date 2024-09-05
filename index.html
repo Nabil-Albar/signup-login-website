@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #2c2c2c;
+    color: white;
+    line-height: 1.5;
+}
+
+.top-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #2c2c2c;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 2.5rem;
+    margin-right: 1rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.auth-buttons button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-buttons .login-btn {
+    background-color: #007bff;
+}
+
+.auth-buttons .register-btn {
+    background-color: #28a745;
+}
+
+.auth-buttons button:hover {
+    background-color: #444;
+}
+
+.opening {
+    background-color: #555;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    max-width: 100%;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.yaudah {
+    border: 0;
+    border-radius: 5px;
+    margin: 2rem;
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    object-fit: cover; /* Keep image aspect ratio */
+    margin-right: 100px;
+}
+
+.textopen {
+    background-color: #2c2c2c;
+    border: 0;
+    color: white;
+    padding: 1.5rem;
+    margin: 1rem 2rem;
+    border-radius: 5px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.textopen p {
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+.auth-buttons2 button {
+    padding: 0.5rem 1rem;
+    margin: 5px;
+    font-size: 1rem;
+    color: white;
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-buttons2 .login-btn {
+    background-color: #007bff;
+}
+
+.auth-buttons2 .register-btn {
+    background-color: #28a745;
+}
+
+.auth-buttons2 button:hover {
+    background-color: #444;
+}
+
+.textopen h2 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .top-box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .opening {
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .yaudah {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .textopen {
+        max-width: 100%;
+        margin: 1rem 0;
+        text-align: center;
+    }
+}
+    </style>
+</head>
+<body>
+    <header class="top-box">
+        <div class="logo-title">
+            <img src="labil.bar.png" alt="Logo" class="logo">
+            <h1 class="title">labil.bar</h1>
+        </div>
+        <div class="auth-buttons">
+            <button onclick="location.href='login.html'" class="login-btn">Masuk</button>
+            <button onclick="location.href='register.html'" class="register-btn">Daftar</button>
+        </div>
+    </header>
+
+    <div class="opening">
+        <img src="blackguyinsuit.png" alt="yaudah" class="yaudah">
+        <div class="textopen">
+            <h2>Segeralah Bergabung Dan (Isi Sendiri)</h2>
+            <p>Ini paragraph biar gak kosong-kosong banget gua isi lah, gua bingung mau ngisi apaan. kalo udah ga bingung nanti gua isi. <br> <br></p>
+            <div class="auth-buttons2">
+                <button onclick="location.href='login.html'" class="login-btn">Masuk</button>
+                <button onclick="location.href='register.html'" class="register-btn">Daftar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
