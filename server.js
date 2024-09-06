@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const app = express();
+const port = 5000;
 
 app.use(express.json()); // Mengambil data JSON dari body request
 
@@ -17,6 +19,24 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String
+});
+
+// Middleware untuk mengizinkan CORS
+app.use(cors({
+    origin: 'https://labilbar.vercel.app', // Ganti dengan domain frontend Anda
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}));
+
+app.use(express.json());
+
+app.post('/api/auth/register', (req, res) => {
+    // Logika pendaftaran pengguna
+    res.send({ msg: 'User registered successfully!' });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
 // Model User
