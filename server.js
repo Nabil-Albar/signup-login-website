@@ -6,37 +6,27 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-app.use(express.json()); // Mengambil data JSON dari body request
-
-// Koneksi ke database MongoDB
-mongoose.connect('mongodb://localhost:27017/labilbar', { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
-}).then(() => console.log('Connected to MongoDB'));
-
-// Schema untuk pengguna
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String
-});
-
-// Middleware untuk mengizinkan CORS
 app.use(cors({
     origin: 'https://labilbar.vercel.app', // Ganti dengan domain frontend Anda
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type']
 }));
 
-app.use(express.json());
+app.use(express.json()); // Mengambil data JSON dari body request
 
-app.post('/api/auth/register', (req, res) => {
-    // Logika pendaftaran pengguna
-    res.send({ msg: 'User registered successfully!' });
-});
+// Ganti dengan string koneksi MongoDB Atlas
+mongoose.connect('mongodb+srv://123:123@labilbar.r5kua.mongodb.net/labilbar?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => console.error('Failed to connect to MongoDB Atlas:', err));
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+
+// Schema untuk pengguna
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String
 });
 
 // Model User
@@ -80,6 +70,6 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 // Jalankan server
-app.listen(5000, () => {
-    console.log('Server berjalan di port 5000');
+app.listen(port, () => {
+    console.log(`Server berjalan di port ${port}`);
 });
