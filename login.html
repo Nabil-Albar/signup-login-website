@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Dulu Guys!</title>
+    <link rel="shortcut icon" href="labil.bar.png" type="image/x-icon"> 
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -98,11 +99,10 @@
             font-size: 1rem;
         }
 
-        .content img{
+        .content img {
             width: 50px;
             margin-left: 130px;
         }
-
     </style>
 </head>
 <body>
@@ -116,8 +116,8 @@
         <h2>Login</h2>
         <hr>
         <form id="login">
-            <label for="nama">Nama:</label>
-            <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Masukkan Email Anda">
         
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" placeholder="Masukkan Password">
@@ -127,29 +127,35 @@
         
         <script>
         document.getElementById('login').addEventListener('submit', async function(event) {
-            event.preventDefault();
-        
-            const email = document.getElementById('nama').value;  // Anggap email untuk login
-            const password = document.getElementById('password').value;
-        
-            const response = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-        
-            const result = await response.json();
-            if (result.token) {
-                alert('Login berhasil!');
-                // Simpan token jika diperlukan
-            } else {
-                alert(result.msg); 
-            }
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
         });
+
+        const result = await response.json();
+        if (result.token) {
+            alert('Login berhasil!');
+            // Simpan token di localStorage untuk akses selanjutnya
+            localStorage.setItem('token', result.token);
+        } else {
+            alert(result.msg);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat login');
+    }
+});
+
         </script>
-        
     </div>
 </body>
 </html>

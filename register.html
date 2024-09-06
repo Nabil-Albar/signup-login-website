@@ -1,6 +1,7 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
+        <link rel="shortcut icon" href="labil.bar.png" type="image/x-icon">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Daftar Dulu Guys!</title>
@@ -130,33 +131,28 @@
             
             <script>
                 document.getElementById('daftar').addEventListener('submit', async function(event) {
-                    event.preventDefault();
-                
-                    const nama = document.getElementById('namabaru').value;
-                    const email = document.getElementById('emails').value;
-                    const password = document.getElementById('passbaru').value;
-                
-                    try {
-                        const response = await fetch('http://localhost:5000/api/auth/register', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ name: nama, email, password })
-                        });
-                
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok.');
-                        }
-                
-                        const result = await response.json();
-                        console.log(result);  // Log result to console for debugging
-                        alert(result.msg);
-                    } catch (error) {
-                        console.error('Error:', error);  // Log any errors to console
-                        alert('Terjadi kesalahan. Silakan coba lagi.');
-                    }
-                });
+    event.preventDefault();
+
+    const nama = document.getElementById('namabaru').value;
+    const email = document.getElementById('emails').value;
+    const password = document.getElementById('passbaru').value;
+
+    try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: nama, email: email, password: password })
+        });
+
+        const result = await response.json();
+        alert(result.msg);  // Tampilkan pesan sukses atau gagal
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat register');
+    }
+});
                 </script>
                            
         </div>
